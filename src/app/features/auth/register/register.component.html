@@ -1,1 +1,84 @@
-<p>register works!</p>
+<div class="min-h-screen flex flex-col lg:flex-row">
+    <div
+        class="w-full lg:w-1/2 bg-gradient-to-br from-[#1a4d5e] to-[#0d2933] flex flex-col items-center justify-center p-8 lg:p-12 text-white">
+        <div class="max-w-md text-center mb-8">
+            <h1 class="text-3xl lg:text-4xl font-bold mb-4">¡Bienvenido a SignPath!</h1>
+            <p class="text-sm opacity-90">
+                Regístrate ahora para acceder a todas las funcionalidades exclusivas de la aplicación.
+            </p>
+        </div>
+        <img src="assets/register.png" alt="SignPath Register" class="max-w-xs lg:max-w-sm hidden lg:block">
+    </div>
+
+    <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-8 lg:p-12">
+        <div class="w-full max-w-md">
+            <h2 class="text-xl lg:text-2xl font-semibold text-center mb-6 lg:mb-8">Crear Cuenta</h2>
+
+            <form class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input type="text" placeholder="Primer Nombre"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                    </div>
+
+                    <div class="relative">
+                        <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input type="text" placeholder="Segundo Nombre"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input type="text" placeholder="Apellido Paterno"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                    </div>
+
+                    <div class="relative">
+                        <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input type="text" placeholder="Apellido Materno"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <i class='bx bx-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                    <input type="email" placeholder="Correo Electrónico"
+                        class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <i class='bx bx-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"
+                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <i [class]="showPassword ? 'bx bx-show' : 'bx bx-hide'" (click)="togglePassword()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl cursor-pointer hover:text-purple-600 transition"></i>
+                    </div>
+
+                    <div class="relative">
+                        <i class='bx bx-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                        <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Confirmar"
+                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <i [class]="showConfirmPassword ? 'bx bx-show' : 'bx bx-hide'" (click)="toggleConfirmPassword()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl cursor-pointer hover:text-purple-600 transition"></i>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-purple-600 text-white py-2.5 lg:py-3 rounded-full hover:bg-purple-700 transition font-medium text-sm lg:text-base flex items-center justify-center gap-2 mt-6">
+                    <i class='bx bx-user-plus text-xl'></i>
+                    Registrarse
+                </button>
+
+                <p class="text-center text-sm text-gray-600 mt-4">
+                    ¿Ya tienes una cuenta?
+                    <a (click)="sendToLogin($event)"
+                        class="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">Inicia Sesión</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="relative min-h-[calc(100vh-12rem)]">
+  <div class="absolute top-0 right-0">
+    <button 
+      (click)="openJoinModal()"
+      class="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-blue-700 transition shadow-lg text-base"
+    >
+      Unirme a clase
+      <i class='bx bx-plus-circle text-2xl'></i>
+    </button>
+  </div>
+
+  <div *ngIf="subjects.length === 0" class="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] pt-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-12">🥳 ¡ No tienes asignaturas disponibles !</h2>
+    
+    <img src="assets/dashboard.png" alt="Sin asignaturas" class="w-[500px] mb-8">
+  </div>
+
+  <div *ngIf="subjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pt-20">
+    <app-subject-card 
+      *ngFor="let subject of subjects"
+      [subjectId]="subject.subject_id"
+      [subjectName]="subject.subject_name"
+      [description]="subject.description"
+      [teacherName]="subject.teacher_name"
+      [imageTeacher]="subject.image_teacher"
+      [gradeLevel]="subject.grade_level"
+      [schoolYear]="subject.school_year"
+      [isActive]="subject.is_active"
+      [isEditable]="false">
+    </app-subject-card>
+  </div>
+</div>
+
+<app-join-class 
+  *ngIf="showJoinModal"
+  (close)="closeJoinModal()"
+  (join)="joinClass($event)">
+</app-join-class>

@@ -1,0 +1,43 @@
+<div class="bg-white rounded-2xl shadow-xl p-6 space-y-4">
+  <!-- Cabecera con profesor y fecha -->
+  <div class="flex items-center gap-3">
+    <img 
+      [src]="teacherImage" 
+      alt="Profesor" 
+      class="w-12 h-12 rounded-full object-cover"
+    />
+    <div>
+      <h3 class="text-base font-semibold text-gray-800">{{ teacherName }}</h3>
+      <p class="text-xs text-gray-500">{{ date }}</p>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <p class="text-sm text-gray-700 leading-relaxed">{{ content }}</p>
+
+  <!-- Materiales -->
+  <div *ngIf="materials && materials.length > 0" class="flex gap-4">
+    <div *ngFor="let material of materials" class="inline-flex flex-col items-center gap-1">
+      <div class="w-14 h-14 rounded-xl flex items-center justify-center" 
+           [ngClass]="{
+             'bg-red-100': material.fileType === 'pdf',
+             'bg-purple-100': material.fileType === 'image',
+             'bg-orange-100': material.fileType === 'presentation',
+             'bg-green-100': material.fileType === 'spreadsheet',
+             'bg-blue-100': material.fileType === 'video',
+             'bg-gray-100': material.fileType === 'code' || material.fileType === 'document' || material.fileType === 'audio'
+           }">
+        <img [src]="getFileIcon(material.fileType)" [alt]="material.fileType" class="w-8 h-8 object-contain" />
+      </div>
+      
+      <p class="text-[10px] text-gray-800 max-w-[70px] truncate text-center leading-tight">{{ material.fileName }}</p>
+      
+      <button 
+        (click)="downloadFile(material.id)"
+        class="text-gray-600 hover:text-gray-900"
+      >
+        <i class='bx bx-download text-base'></i>
+      </button>
+    </div>
+  </div>
+</div>

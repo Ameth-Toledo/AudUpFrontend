@@ -1,0 +1,54 @@
+<div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer w-full h-80">
+  <div class="h-32 bg-gradient-to-r from-orange-400 to-orange-600 relative">
+    <p class="absolute top-3 left-3 text-sm text-white flex items-center gap-1">
+      <i class='bx bx-calendar'></i>
+      {{ schoolYear }}
+    </p>
+
+    <div *ngIf="isEditable" class="absolute top-3 right-3 flex gap-2">
+      <button 
+        (click)="editSubject()"
+        class="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition"
+      >
+        <i class='bx bx-edit-alt text-blue-600 text-lg'></i>
+      </button>
+      <button 
+        (click)="deleteSubject()"
+        class="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition"
+      >
+        <i class='bx bx-trash text-red-600 text-lg'></i>
+      </button>
+    </div>
+    
+    <img 
+      [src]="imageTeacher" 
+      alt="Profesor" 
+      class="absolute bottom-0 left-6 w-20 h-20 rounded-full border-4 border-white transform translate-y-1/2 object-cover"
+    />
+  </div>
+  
+  <div class="pt-12 pb-4 px-6 flex flex-col justify-between h-48">
+    <div>
+      <h3 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-2">{{ subjectName }}</h3>
+      <p class="text-xs text-gray-500 mb-2 line-clamp-2">{{ description }}</p>
+      <div class="h-px bg-gray-200 my-2"></div>
+    </div>
+    
+    <div class="space-y-1">
+      <p class="text-sm text-gray-600">
+        <i class='bx bx-user text-gray-400'></i>
+        Prof. {{ teacherName }}
+      </p>
+      <p class="text-sm text-gray-600">
+        <i class='bx bx-book-bookmark text-gray-400'></i>
+        {{ gradeLevel }}
+      </p>
+      
+      <div *ngIf="!isActive" class="pt-2">
+        <span class="inline-block px-2 py-1 bg-red-100 text-red-600 text-xs rounded-full">
+          Inactiva
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
