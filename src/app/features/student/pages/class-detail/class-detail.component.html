@@ -1,9 +1,23 @@
+<div class="space-y-6 mb-6">
+    <app-material-card [teacherName]="classData.teacherName" [teacherImage]="classData.teacherImage"
+        [date]="classData.date" [content]="classData.content" [materials]="classData.materials">
+    </app-material-card>
+</div>
+
+<div class="space-y-6 mb-6">
+    <app-live-card teacherName="Ali López Zúnun" teacherImage="assets/avatar.png" date="15 Agosto"
+        message="Chicos, únanse a la transcripción en vivo de la clase para seguir el contenido en tiempo real."
+        [isLive]="true" (onJoinLive)="joinLiveClass()" (onDownloadPDF)="downloadTranscription()">
+    </app-live-card>
+</div>
+
 <div class="space-y-6">
-  <app-material-card
-    [teacherName]="classData.teacherName"
-    [teacherImage]="classData.teacherImage"
-    [date]="classData.date"
-    [content]="classData.content"
-    [materials]="classData.materials">
-  </app-material-card>
+    <app-announcement-card 
+        [announcementId]="1"
+        teacherName="Ali López Zúnun"
+        teacherImage="assets/avatar.png"
+        date="2025-08-15"
+        content="Recordatorio: La primera evaluación será el próximo viernes. Asegúrense de repasar los conceptos de clases, objetos, herencia y polimorfismo."
+        [isEditable]="false">
+    </app-announcement-card>
 </div>

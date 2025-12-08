@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialCardComponent } from "../../../../shared/components/material-card/material-card.component";
+import { LiveCardComponent } from "../../../../shared/components/live-card/live-card.component";
+import { AnnouncementCardComponent } from "../../../../shared/components/announcement-card/announcement-card.component";
 
 @Component({
   selector: 'app-class-detail',
   standalone: true,
-  imports: [CommonModule, MaterialCardComponent],
+  imports: [CommonModule, MaterialCardComponent, LiveCardComponent, AnnouncementCardComponent],
   templateUrl: './class-detail.component.html',
   styleUrl: './class-detail.component.css'
 })
@@ -38,4 +40,7 @@ export class ClassDetailComponent implements OnInit {
   viewClass(classId: number) {
     console.log('Ver clase:', classId);
   }
+
+  joinLiveClass() {}
+  downloadTranscription() {}
 }
