@@ -1,4 +1,10 @@
-<aside class="fixed top-4 left-4 w-72 h-[calc(100vh-2rem)] bg-[#0A3143] text-white flex flex-col justify-between p-6 rounded-[2rem] shadow-2xl">
+<aside class="fixed top-4 left-4 w-72 h-[calc(100vh-2rem)] bg-[#0A3143] text-white flex flex-col justify-between p-6 rounded-[2rem] shadow-2xl z-50 lg:block">
+  <button 
+    (click)="close()"
+    class="lg:hidden absolute top-6 right-6 text-white text-3xl hover:text-gray-300">
+    <i class='bx bx-x'></i>
+  </button>
+
   <div>
     <div class="flex items-center gap-3 mb-8 p-3">
       <img src="assets/logo.png" alt="AudUP" class="w-12 h-12">
@@ -11,6 +17,7 @@
       <a 
         *ngFor="let item of menuItems"
         [routerLink]="item.route"
+        (click)="close()"
         [class.active]="isActive(item.route)"
         class="menu-item flex items-center gap-3 px-4 py-3.5 rounded-xl transition cursor-pointer relative"
       >

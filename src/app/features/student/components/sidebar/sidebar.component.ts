@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  @Output() closeSidebar = new EventEmitter<void>();
+
   menuItems = [
     { icon: 'bx-home', label: 'Inicio', route: '/dashboard/student' },
     { icon: 'bx-bell', label: 'Anuncios', route: '/dashboard/anuncios' },
@@ -26,5 +28,9 @@ export class SidebarComponent {
 
   logout() {
     this.router.navigate(['/auth/login']);
+  }
+
+  close() {
+    this.closeSidebar.emit();
   }
 }

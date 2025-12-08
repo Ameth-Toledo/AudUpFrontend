@@ -1,8 +1,16 @@
-<div class="min-h-screen">
-  <app-sidebar></app-sidebar>
+<div class="min-h-screen bg-gray-50">
+  <div 
+    *ngIf="sidebarOpen"
+    (click)="closeSidebar()"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden">
+  </div>
+
+  <div [class.hidden]="!sidebarOpen" class="lg:block">
+    <app-sidebar (closeSidebar)="closeSidebar()"></app-sidebar>
+  </div>
   
-  <div class="ml-80 p-6">
-    <app-header></app-header>
+  <div class="lg:ml-80 p-4 lg:p-6">
+    <app-header (toggleSidebar)="toggleSidebar()"></app-header>
     
     <main class="mt-6">
       <router-outlet></router-outlet>
