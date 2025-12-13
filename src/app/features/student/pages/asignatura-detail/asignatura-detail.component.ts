@@ -17,6 +17,7 @@ export class AsignaturaDetailComponent implements OnInit {
   subjectId: string = '';
   announcements: any[] = [];
   classes: any[] = [];
+  activeTab: 'anuncios' | 'clases' = 'anuncios';
 
   constructor(
     private route: ActivatedRoute,
@@ -31,25 +32,17 @@ export class AsignaturaDetailComponent implements OnInit {
     const decodedName = decodeURIComponent(this.subjectName).replace(/-/g, ' ');
     this.titleService.setTitle(decodedName);
 
-    // Datos de prueba - Anuncios
+    // Datos de prueba
     this.announcements = [
       {
         id: 1,
         teacherName: 'Ali López Zúnun',
         teacherImage: 'assets/avatar.png',
         date: '2025-08-15',
-        content: 'Hola chicos, bienvenidos a la clase de programación orientada a objetos. Aquí les estaré subiendo materiales de clase, actividades y recursos de apoyo. Les recomiendo revisar el contenido de manera constante y participar activamente para aprovechar al máximo la materia.'
-      },
-      {
-        id: 2,
-        teacherName: 'Ali López Zúnun',
-        teacherImage: 'assets/avatar.png',
-        date: '2025-08-20',
-        content: 'Recordatorio: La primera evaluación será el próximo viernes. Asegúrense de repasar los conceptos de clases, objetos, herencia y polimorfismo.'
+        content: 'Hola chicos, bienvenidos a la clase de programación orientada a objetos.'
       }
     ];
 
-    // Datos de prueba - Clases
     this.classes = [
       {
         id: 1,
@@ -60,22 +53,8 @@ export class AsignaturaDetailComponent implements OnInit {
         id: 2,
         name: 'CLASE 2 - HERENCIA Y POLIMORFISMO',
         status: 'Actividad'
-      },
-      {
-        id: 3,
-        name: 'CLASE 3 - ENCAPSULAMIENTO',
-        status: 'Pendiente'
-      },
-      {
-        id: 4,
-        name: 'CLASE 4 - ABSTRACCIÓN',
-        status: 'Pendiente'
       }
     ];
-
-    // Cargar datos desde API
-    // this.loadAnnouncements();
-    // this.loadClasses();
   }
 
   decodeURIComponent(str: string): string {
@@ -86,6 +65,9 @@ export class AsignaturaDetailComponent implements OnInit {
 
   viewClass(classId: number) {
     console.log('Ver clase:', classId);
-    // this.router.navigate(['/student/clase', classId]);
+  }
+
+  setActiveTab(tab: 'anuncios' | 'clases') {
+    this.activeTab = tab;
   }
 }

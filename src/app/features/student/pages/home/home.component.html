@@ -2,17 +2,18 @@
   <div class="absolute top-0 right-0">
     <button 
       (click)="openJoinModal()"
-      class="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-blue-700 transition shadow-lg text-base"
+      class="bg-blue-600 text-white px-4 lg:px-8 py-2.5 lg:py-3.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-blue-700 transition shadow-lg text-sm lg:text-base"
     >
-      Unirme a clase
-      <i class='bx bx-plus-circle text-2xl'></i>
+      <span class="hidden sm:inline">Unirme a clase</span>
+      <span class="sm:hidden">Unirme</span>
+      <i class='bx bx-plus-circle text-xl lg:text-2xl'></i>
     </button>
   </div>
 
-  <div *ngIf="subjects.length === 0" class="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] pt-16">
-    <h2 class="text-3xl font-bold text-gray-800 mb-12">🥳 ¡ No tienes asignaturas disponibles !</h2>
+  <div *ngIf="subjects.length === 0" class="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] pt-16 px-4">
+    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-12 text-center">🥳 ¡ No tienes asignaturas disponibles !</h2>
     
-    <img src="assets/dashboard.png" alt="Sin asignaturas" class="w-[500px] mb-8">
+    <img src="assets/dashboard.png" alt="Sin asignaturas" class="w-full max-w-[500px] mb-8">
   </div>
 
   <div *ngIf="subjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pt-20">
