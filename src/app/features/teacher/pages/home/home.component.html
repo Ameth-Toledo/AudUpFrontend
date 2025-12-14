@@ -1,11 +1,11 @@
 <div class="relative min-h-[calc(100vh-12rem)]">
   <div class="absolute top-0 right-0">
     <button 
-      (click)="openJoinModal()"
+      (click)="openCreateModal()"
       class="bg-blue-600 text-white px-4 lg:px-8 py-2.5 lg:py-3.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-blue-700 transition shadow-lg text-sm lg:text-base"
     >
-      <span class="hidden sm:inline">Unirme a clase</span>
-      <span class="sm:hidden">Unirme</span>
+      <span class="hidden sm:inline">Crear Asignatura</span>
+      <span class="sm:hidden">Crear</span>
       <i class='bx bx-plus-circle text-xl lg:text-2xl'></i>
     </button>
   </div>
@@ -18,7 +18,7 @@
   </div>
 
   <div *ngIf="!isLoading && subjects.length === 0" class="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] pt-16 px-4">
-    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-12 text-center">🥳 ¡ No tienes asignaturas disponibles !</h2>
+    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-12 text-center">📚 ¡ No tienes asignaturas creadas !</h2>
     
     <img src="assets/dashboard.png" alt="Sin asignaturas" class="w-full max-w-[500px] mb-8">
   </div>
@@ -34,13 +34,15 @@
       [gradeLevel]="subject.grade_level"
       [schoolYear]="subject.school_year"
       [isActive]="subject.is_active"
-      [isEditable]="false">
+      [isEditable]="true"
+      (onEdit)="editSubject($event)"
+      (onDelete)="deleteSubject($event)">
     </app-subject-card>
   </div>
 </div>
 
-<app-join-class 
-  *ngIf="showJoinModal"
-  (close)="closeJoinModal()"
-  (joined)="onClassJoined()">
-</app-join-class>
+<app-create-subject-modal 
+  *ngIf="showCreateModal"
+  (close)="closeCreateModal()"
+  (created)="onSubjectCreated()">
+</app-create-subject-modal>

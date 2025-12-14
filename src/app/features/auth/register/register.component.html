@@ -14,17 +14,40 @@
         <div class="w-full max-w-md">
             <h2 class="text-xl lg:text-2xl font-semibold text-center mb-6 lg:mb-8">Crear Cuenta</h2>
 
-            <form class="space-y-4">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+                <div class="flex flex-col items-center mb-6">
+                    <div class="relative">
+                        <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-gray-300">
+                            <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" class="w-full h-full object-cover">
+                            <i *ngIf="!imagePreview" class='bx bx-user text-4xl text-gray-400'></i>
+                        </div>
+                        <label class="absolute bottom-0 right-0 bg-purple-600 rounded-full p-2 cursor-pointer hover:bg-purple-700 transition">
+                            <i class='bx bx-camera text-white text-lg'></i>
+                            <input type="file" accept="image/*" (change)="onImageSelected($event)" class="hidden">
+                        </label>
+                        <button *ngIf="imagePreview" type="button" (click)="removeImage()" 
+                                class="absolute top-0 right-0 bg-red-500 rounded-full p-1 cursor-pointer hover:bg-red-600 transition">
+                            <i class='bx bx-x text-white text-sm'></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Foto de perfil (opcional)</p>
+                </div>
+
+                <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm">
+                    {{ errorMessage }}
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative">
                         <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input type="text" placeholder="Primer Nombre"
-                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <input type="text" formControlName="firstName" placeholder="Primer Nombre"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                            [class.border-red-500]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" />
                     </div>
 
                     <div class="relative">
                         <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input type="text" placeholder="Segundo Nombre"
+                        <input type="text" formControlName="middleName" placeholder="Segundo Nombre"
                             class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
                     </div>
                 </div>
@@ -32,45 +55,62 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative">
                         <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input type="text" placeholder="Apellido Paterno"
-                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <input type="text" formControlName="lastName" placeholder="Apellido Paterno"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                            [class.border-red-500]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" />
                     </div>
 
                     <div class="relative">
                         <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input type="text" placeholder="Apellido Materno"
+                        <input type="text" formControlName="secondLastName" placeholder="Apellido Materno"
                             class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
                     </div>
                 </div>
 
                 <div class="relative">
                     <i class='bx bx-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                    <input type="email" placeholder="Correo Electrónico"
-                        class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                    <input type="email" formControlName="email" placeholder="Correo Electrónico"
+                        class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                        [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
+                </div>
+
+                <div class="relative">
+                    <i class='bx bx-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+                    <input type="tel" formControlName="phone" placeholder="Teléfono (10 dígitos)"
+                        class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                        [class.border-red-500]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched" />
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative">
                         <i class='bx bx-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"
-                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Contraseña"
+                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                            [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
                         <i [class]="showPassword ? 'bx bx-show' : 'bx bx-hide'" (click)="togglePassword()"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl cursor-pointer hover:text-purple-600 transition"></i>
                     </div>
 
                     <div class="relative">
                         <i class='bx bx-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                        <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Confirmar"
-                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                        <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirmar"
+                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base"
+                            [class.border-red-500]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" />
                         <i [class]="showConfirmPassword ? 'bx bx-show' : 'bx bx-hide'" (click)="toggleConfirmPassword()"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl cursor-pointer hover:text-purple-600 transition"></i>
                     </div>
                 </div>
 
-                <button type="submit"
-                    class="w-full bg-purple-600 text-white py-2.5 lg:py-3 rounded-full hover:bg-purple-700 transition font-medium text-sm lg:text-base flex items-center justify-center gap-2 mt-6">
-                    <i class='bx bx-user-plus text-xl'></i>
-                    Registrarse
+                <div *ngIf="registerForm.get('confirmPassword')?.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched" 
+                     class="text-red-500 text-xs">
+                    Las contraseñas no coinciden
+                </div>
+
+                <button type="submit" [disabled]="isLoading"
+                    class="w-full bg-purple-600 text-white py-2.5 lg:py-3 rounded-full hover:bg-purple-700 transition font-medium text-sm lg:text-base flex items-center justify-center gap-2 mt-6 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i *ngIf="!isLoading" class='bx bx-user-plus text-xl'></i>
+                    <i *ngIf="isLoading" class='bx bx-loader-alt animate-spin text-xl'></i>
+                    {{ isLoading ? 'Registrando...' : 'Registrarse' }}
                 </button>
 
                 <p class="text-center text-sm text-gray-600 mt-4">

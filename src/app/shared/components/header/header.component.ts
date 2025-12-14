@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter<void>();
   
   showNotifications = false;
+  userName: string = '';
+  userRole: string = '';
+  userImage: string = 'assets/avatar.png';
   
   notifications = [
     {
@@ -42,6 +46,17 @@ export class HeaderComponent {
       color: 'green'
     }
   ];
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    const user = this.authService.getUser();
+    if (user) {
+      this.userName = user.name;
+      this.userRole = user.roleId === 1 ? 'Estudiante' : 'Docente';
+      this.userImage = user.profileImageUrl || 'assets/avatar.png';
+    }
+  }
 
   onToggleSidebar() {
     this.toggleSidebar.emit();

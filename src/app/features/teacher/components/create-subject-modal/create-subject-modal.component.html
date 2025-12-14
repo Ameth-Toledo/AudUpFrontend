@@ -1,0 +1,134 @@
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4" (click)="onClose()">
+  <div class="bg-white rounded-2xl p-6 lg:p-8 w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto" (click)="$event.stopPropagation()">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 lg:w-10 lg:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+          <i class='bx bx-book-add text-white text-xl lg:text-2xl'></i>
+        </div>
+        <h2 class="text-lg lg:text-xl font-bold text-gray-800">Crear Nueva Asignatura</h2>
+      </div>
+      <button (click)="onClose()" class="text-gray-400 hover:text-gray-600 transition">
+        <i class='bx bx-x text-2xl lg:text-3xl'></i>
+      </button>
+    </div>
+
+    <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm">
+        {{ errorMessage }}
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre de la Asignatura *</label>
+        <div class="relative">
+          <i class='bx bx-book absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+          <input 
+            type="text" 
+            formControlName="subject_name"
+            placeholder="Ej. Programación Orientada a Objetos"
+            [disabled]="isLoading"
+            class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-600 transition text-sm disabled:opacity-50"
+            [class.border-red-500]="subjectForm.get('subject_name')?.invalid && subjectForm.get('subject_name')?.touched"
+          />
+        </div>
+        <p *ngIf="subjectForm.get('subject_name')?.hasError('required') && subjectForm.get('subject_name')?.touched" 
+           class="text-red-500 text-xs mt-1">
+          El nombre es requerido
+        </p>
+        <p *ngIf="subjectForm.get('subject_name')?.hasError('minlength') && subjectForm.get('subject_name')?.touched" 
+           class="text-red-500 text-xs mt-1">
+          El nombre debe tener al menos 3 caracteres
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción *</label>
+        <div class="relative">
+          <i class='bx bx-edit absolute left-3 top-3 text-gray-400 text-xl'></i>
+          <textarea 
+            formControlName="description"
+            placeholder="Describe brevemente el contenido de la asignatura"
+            rows="3"
+            [disabled]="isLoading"
+            class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-600 transition text-sm resize-none disabled:opacity-50"
+            [class.border-red-500]="subjectForm.get('description')?.invalid && subjectForm.get('description')?.touched"
+          ></textarea>
+        </div>
+        <p *ngIf="subjectForm.get('description')?.hasError('required') && subjectForm.get('description')?.touched" 
+           class="text-red-500 text-xs mt-1">
+          La descripción es requerida
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel/Grado *</label>
+          <div class="relative">
+            <i class='bx bx-graduation absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+            <input 
+              type="text" 
+              formControlName="grade_level"
+              placeholder="Ej. 3 Cuatrimestre"
+              [disabled]="isLoading"
+              class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-600 transition text-sm disabled:opacity-50"
+              [class.border-red-500]="subjectForm.get('grade_level')?.invalid && subjectForm.get('grade_level')?.touched"
+            />
+          </div>
+          <p *ngIf="subjectForm.get('grade_level')?.hasError('required') && subjectForm.get('grade_level')?.touched" 
+             class="text-red-500 text-xs mt-1">
+            El nivel/grado es requerido
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Año Escolar *</label>
+          <div class="relative">
+            <i class='bx bx-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
+            <input 
+              type="text" 
+              formControlName="school_year"
+              placeholder="Ej. 2024-2025"
+              [disabled]="isLoading"
+              class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-600 transition text-sm disabled:opacity-50"
+              [class.border-red-500]="subjectForm.get('school_year')?.invalid && subjectForm.get('school_year')?.touched"
+            />
+          </div>
+          <p *ngIf="subjectForm.get('school_year')?.hasError('required') && subjectForm.get('school_year')?.touched" 
+             class="text-red-500 text-xs mt-1">
+            El año escolar es requerido
+          </p>
+          <p *ngIf="subjectForm.get('school_year')?.hasError('pattern') && subjectForm.get('school_year')?.touched" 
+             class="text-red-500 text-xs mt-1">
+            Formato: YYYY-YYYY (Ej. 2024-2025)
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-2 bg-blue-50 p-3 lg:p-4 rounded-lg">
+        <div class="flex items-start gap-2">
+          <i class='bx bx-info-circle text-blue-600 text-base lg:text-lg mt-0.5 flex-shrink-0'></i>
+          <p class="text-xs text-gray-700">Se generará automáticamente un código único de 8 caracteres para que los estudiantes se unan a la clase.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-4">
+        <button 
+          type="button"
+          (click)="onClose()"
+          [disabled]="isLoading"
+          class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm lg:text-base disabled:opacity-50"
+        >
+          <i class='bx bx-x'></i> Cancelar
+        </button>
+        <button 
+          type="submit"
+          [disabled]="isLoading"
+          class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm lg:text-base"
+        >
+          <i *ngIf="!isLoading" class='bx bx-plus-circle'></i>
+          <i *ngIf="isLoading" class='bx bx-loader-alt animate-spin'></i>
+          {{ isLoading ? 'Creando...' : 'Crear Asignatura' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

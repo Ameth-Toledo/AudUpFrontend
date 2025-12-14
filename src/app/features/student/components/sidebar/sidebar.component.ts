@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,13 +21,17 @@ export class SidebarComponent {
     { icon: 'bx-cog', label: 'Configuración', route: '/dashboard/configuracion' }
   ];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   isActive(route: string): boolean {
     return this.router.url === route;
   }
 
   logout() {
+    this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
 

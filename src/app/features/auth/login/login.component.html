@@ -38,7 +38,8 @@
                             [(ngModel)]="email"
                             name="email"
                             required
-                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                            [disabled]="isLoading"
+                            class="w-full pl-10 pr-4 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base disabled:opacity-50" />
                     </div>
                 </div>
 
@@ -51,16 +52,18 @@
                             [(ngModel)]="password"
                             name="password"
                             required
-                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base" />
+                            [disabled]="isLoading"
+                            class="w-full pl-10 pr-10 py-2 lg:py-3 border-b-2 border-gray-300 focus:border-purple-600 outline-none transition text-sm lg:text-base disabled:opacity-50" />
                         <i [class]="showPassword ? 'bx bx-show' : 'bx bx-hide'" (click)="togglePassword()"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl cursor-pointer hover:text-purple-600 transition"></i>
                     </div>
                 </div>
 
-                <button type="submit"
-                    class="w-full bg-[#1a3a4a] text-white py-2.5 lg:py-3 rounded-full hover:bg-[#0d2933] transition font-medium text-sm lg:text-base flex items-center justify-center gap-2">
-                    <i class='bx bx-log-in text-xl'></i>
-                    Iniciar Sesión
+                <button type="submit" [disabled]="isLoading"
+                    class="w-full bg-[#1a3a4a] text-white py-2.5 lg:py-3 rounded-full hover:bg-[#0d2933] transition font-medium text-sm lg:text-base flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i *ngIf="!isLoading" class='bx bx-log-in text-xl'></i>
+                    <i *ngIf="isLoading" class='bx bx-loader-alt animate-spin text-xl'></i>
+                    {{ isLoading ? 'Iniciando...' : 'Iniciar Sesión' }}
                 </button>
 
                 <p class="text-center text-sm text-gray-600 mt-4">
